@@ -98,7 +98,7 @@ jobs:
             
   scan-frontend:
     docker:
-      - image: cimg/node:13.8.0
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - restore_cache:
@@ -109,13 +109,13 @@ jobs:
               cd frontend
               npm install
               npm audit fix --force
-              npm update kind-of --depth 14
+              npm audit fix --force
               npm audit --audit-level=critical
 
             
   scan-backend:
     docker:
-      - image: cimg/node:13.8.0
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - restore_cache:
@@ -126,7 +126,7 @@ jobs:
               cd backend
               npm install
               npm audit fix --force
-              npm update kind-of --depth 14
+              npm audit fix --force
               npm audit --audit-level=critical
 
 #   deploy-infrastructure:

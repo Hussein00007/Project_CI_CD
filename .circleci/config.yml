@@ -76,7 +76,7 @@ jobs:
           keys: [frontend-build]
       - run:
           name: Frontend-Test
-          command: 
+          command: |
              cd frontend
              npm install
              npm run test
@@ -91,8 +91,8 @@ jobs:
           keys: [backend-build]
       - run:
           name: backend-Test
-          command: 
-             cd frontend
+          command: |
+             cd backend
              npm install
              npm run test
             

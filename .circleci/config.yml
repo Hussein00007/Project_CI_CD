@@ -77,9 +77,9 @@ jobs:
       - run:
           name: Frontend-Test
           command: 
-              cd frontend
-              npm install
-              npm run test
+             cd frontend
+             npm install
+             npm run test
       
                 
   test-backend:
@@ -92,9 +92,9 @@ jobs:
       - run:
           name: backend-Test
           command: 
-              cd frontend
-              npm install
-              npm run test
+             cd frontend
+             npm install
+             npm run test
             
 #   scan-frontend:
 #     docker:

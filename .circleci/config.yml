@@ -230,6 +230,7 @@ jobs:
           name: Run migrations
           working_directory: ./backend
           command: |
+            npm install typescript
             npm run migrations > migrations_dump.txt
 
       - run:

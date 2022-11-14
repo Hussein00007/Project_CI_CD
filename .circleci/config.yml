@@ -213,6 +213,10 @@ jobs:
       - image: python:3.7-alpine3.11
     steps:
       - checkout
+      - run: 
+          name: install deps
+          command: |
+            apt-get install curl
       - install_awscli
       - add_ssh_keys:
           fingerprints: ["a8:99:a4:97:7b:21:09:d5:13:c0:ec:ef:12:09:b5:c0"]

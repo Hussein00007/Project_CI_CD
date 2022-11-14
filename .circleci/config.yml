@@ -287,10 +287,12 @@ jobs:
                     
   deploy-backend:
     docker:
-      - image: cimg/python:3.7-node
+      - image: cimg/base:stable
     steps:
       - checkout
+      - install_awscli
       - install_ansible
+      - install_nodejs
       - restore_cache:
           keys: [backend-build]     
       - add_ssh_keys:
@@ -301,7 +303,7 @@ jobs:
           name: Deploy backend
           working_directory: backend
           command: |
-            npm install typescript -g
+            
             npm run build
             cd ..
             tar -C backend -czvf artifact.tar.gz .

@@ -1,22 +1,12 @@
 ---
-- name: "installing npm"
+- name: "Install dependencies"
   become: true
   apt:
-    name: npm
-    update_cache: yes
+    name: ["python3", "nodejs", "npm"]
     state: latest
+    update_cache: yes
 
-- name: Install nvm
-  become: true
-  npm:
-    name: n
-    global: yes
-
-- name: install nodejs v13.8.0
-  become: true
-  command: n 13.8.0
-
-- name: "installing pm2"
+- name: "install pm2"
   become: true
   npm:
     name: pm2

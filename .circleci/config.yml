@@ -325,11 +325,16 @@ jobs:
 
   smoke-test:
     docker:
-      - image: cimg/base:stable
+      - image: circleci/node:13.8.0
     steps:
       - checkout
-      - install_awscli
-      - install_nodejs
+      - run:
+          name: Install dependencies
+          command: |
+            sudo apt update
+            sudo apt install curl
+            sudo apt install -y awscli
+            sudo apt install -y python3 ansible
       - run:
           name: Frontend smoke test.
           command: |

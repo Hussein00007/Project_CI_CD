@@ -331,6 +331,16 @@ jobs:
       - install_awscli
       - install_nodejs
       - run:
+          name: Frontend smoke test.
+          command: |
+            FRONTEND_WEBSITE=http://udapeople-qokejfiwuh985u4uhiwu.s3-website-us-east-1.amazonaws.com
+            if curl -s $FRONTEND_WEBSITE | grep "Welcome"
+            then
+              exit 1
+            else
+              exit 1
+            fi
+      - run:
           name: Backend smoke test.
           command: |
             BACKEND_PUBLIC_IP=$(aws ec2 describe-instances \
@@ -338,22 +348,14 @@ jobs:
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
               --output text)
             export API_URL=http://${BACKEND_PUBLIC_IP}:3030
-            if curl -s $API_URL/api/status | grep "ok"
+            echo ${API_URL} 
+            if curl -s ${API_URL}/api/status | grep "ok"
             then
               exit 0
             else
               exit 1
             fi
-      - run:
-          name: Frontend smoke test.
-          command: |
-            FRONTEND_WEBSITE=http://udapeople-qokejfiwuh985u4uhiwu.s3-website-${AWS_DEFAULT_REGION}.amazonaws.com
-            if curl -s $FRONTEND_WEBSITE | grep "Welcome"
-            then
-              exit 1
-            else
-              exit 1
-            fi
+  
       - destroy-environment
       - revert-migrations
 

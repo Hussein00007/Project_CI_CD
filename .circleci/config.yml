@@ -216,7 +216,7 @@ jobs:
       - run: 
           name: install deps
           command: |
-            apt-get install curl
+            RUN apk --no-cache add curl
       - install_awscli
       - add_ssh_keys:
           fingerprints: ["a8:99:a4:97:7b:21:09:d5:13:c0:ec:ef:12:09:b5:c0"]

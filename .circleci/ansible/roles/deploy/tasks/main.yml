@@ -1,38 +1,30 @@
 ---
-- name: Update and upgrade packages
-  become: true
-  apt:
-    upgrade: yes
-    # update_cache: true
-    cache_valid_time: 86400
+- name: "Creates backend app directory"
+  file:
+    path: ~/backend-app
+    state: directory
 
-- name: Remove unuse dependencies
-  become: true
-  apt:
-    autoremove: yes
-
-- name: Install dependencies
-  become: true
-  apt: 
-    name: ['nodejs', 'npm']
-    state: latest
-    # update_cahche: yes
-
-- name: Install pm2
-  become: true
-  npm:
-    name: pm2
-    global: yes
-    production: yes
-
-- name: Extract artifacts
-  become: true
+- name: "Unarchive backend files"
   unarchive:
-    src: files/artifact.tar.gz
-    dest: .
+    src: artifact.tar.gz
+    dest: ~/backend-app
 
-- name: Start app
+- name: "Installing Node Dependencies"
+  shell: |
+    cd ~/backend-app
+    npm i
+- name: "Executing Node app with PM2"
+  shell: |
+    cd ~/backend-app/dist
+    pm2 stop default
+    pm2 start main.js
+  register: execute_node
+
+- name: print message
+  debug:
+    msg: "{{ execute_node.stdout_lines }}"
+
+- name: "Configure pm2 to start as service"
   become: true
   shell: |
-    pm2 delete all
-    pm2 start npm -- start
+    env PATH=$PATH:/usr/local/bin pm2 startup systemd -u ubuntu --hp /home/ubuntu

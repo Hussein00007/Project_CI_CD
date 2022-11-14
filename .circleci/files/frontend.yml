@@ -1,6 +1,5 @@
 Description: >
   UdaPeople frontend stack.
-
 Parameters:
   ID:
     Description: Unique identifier.
@@ -10,7 +9,7 @@ Resources:
   WebsiteBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub "udapeople-qokejfiwuh985u4uhiwu"
+      BucketName: !Sub "udapeople-${ID}"
       AccessControl: PublicRead
       WebsiteConfiguration:
         IndexDocument: index.html

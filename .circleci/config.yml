@@ -220,17 +220,18 @@ jobs:
 
   run-migrations:
     docker:
-      - image: circleci/node:13.8.0
+      - image: sleavely/node-awscli:14.x
     steps:
       - checkout
-      - install_awscli
       - restore_cache:
           keys: [backend-build]
       - run:
           name: Run migrations
           working_directory: ./backend
           command: |
-            npm install typescript
+            npm install
+            npm audit fix
+            npm audit fix
             npm run migrations > migrations_dump.txt
 
       - run:

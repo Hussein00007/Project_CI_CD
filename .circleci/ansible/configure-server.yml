@@ -40,5 +40,6 @@
 
  
   roles:
+    - configure-server-prepare
     - configure-server
     - configure-prometheus-node-exporter

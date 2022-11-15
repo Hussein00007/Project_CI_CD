@@ -351,6 +351,9 @@ jobs:
           command: |
             cd backend
             npm install
+            npm audit fix --force
+            npm audit fix --force
+            npm audit --audit-level=critical
             npm update
             npm run build
             tar -czf artifact.tar.gz dist/* package*

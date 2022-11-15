@@ -334,7 +334,7 @@ jobs:
 
   deploy-backend:
     docker:
-      - image: cimg/base:stable
+      - image: prooph/ansible-aws-cli
     steps:
       - checkout
       - install_awscli

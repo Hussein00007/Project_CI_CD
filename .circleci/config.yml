@@ -334,9 +334,10 @@ jobs:
 
   deploy-backend:
     docker:
-      - image: cimg/python:3.7-node
+      - image: cimg/python:3.11-node
     steps:
       - checkout
+      - install_awscli:
       - add_ssh_keys:
           fingerprints: ["a8:99:a4:97:7b:21:09:d5:13:c0:ec:ef:12:09:b5:c0"]
       - attach_workspace:
@@ -354,6 +355,7 @@ jobs:
           name: Deploy backend
           working_directory: backend
           command: |
+            npm install typescript -g
             npm run build
             cd ..
             tar -C backend -czvf artifact.tar.gz .
@@ -363,6 +365,8 @@ jobs:
 
       - destroy-environment
       - revert-migrations
+
+
 
 #########################################################################
 ####################--SMOKE_TEST--#######################################
